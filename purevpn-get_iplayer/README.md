@@ -1,3 +1,3 @@
-https://hub.docker.com/r/ivonet/purevpn/
-docker build -t purevpn:0.1 . 
-docker run -it --entrypoint /bin/bash purevpn:0.1
+Attempt to build an image for purevpn and use get_iplayer for iplayer. Unfortunately purevpn configuration is
+quite tricky. Current state is that it's not working.
+
