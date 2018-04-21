@@ -34,10 +34,13 @@ RUN cd /tmp/R-devel \
 	&& make \
 	&& make install \
 	&& rm -rf /tmp/R-devel
+## Set Renviron to get libs from base R install
+RUN echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/local/lib/R/etc/Renviron
+## Set default CRAN repo
+RUN echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /usr/local/lib/R/etc/Rprofile.site
 ## Install dependencies
-#RUN Rscript -e "install.packages('data.table')"
-#RUN Rscript -e "install.packages('ggplot2')"
-#RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("bsseq")'
-#RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("")'
-#RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("YAPSA")'
-
+RUN Rscript -e 'install.packages("data.table")'
+RUN Rscript -e 'install.packages("ggplot2")'
+RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("bsseq")'
+RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("ExperimentHub")'
+RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("tissueTreg")'
